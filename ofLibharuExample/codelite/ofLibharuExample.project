@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="ofLibharuExample" InternalType="">
+  <VirtualDirectory Name="cppFont">
+    <VirtualDirectory Name="ofLibharuExample">
+      <VirtualDirectory Name="bin">
+        <VirtualDirectory Name="data">
+          <VirtualDirectory Name="hyphenate">
+            <File Name="../bin/data/hyphenate/es"/>
+            <File Name="../bin/data/hyphenate/fr"/>
+            <File Name="../bin/data/hyphenate/de-DE-1901"/>
+            <File Name="../bin/data/hyphenate/en"/>
+            <File Name="../bin/data/hyphenate/de"/>
+            <File Name="../bin/data/hyphenate/de-1901"/>
+          </VirtualDirectory>
+        </VirtualDirectory>
+        <File Name="../bin/ofLibharuExample_debug"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="ofExample">
+      <VirtualDirectory Name="bin">
+        <VirtualDirectory Name="data">
+          <VirtualDirectory Name="hyphenate">
+            <File Name="../../ofExample/bin/data/hyphenate/es"/>
+            <File Name="../../ofExample/bin/data/hyphenate/fr"/>
+            <File Name="../../ofExample/bin/data/hyphenate/de-DE-1901"/>
+            <File Name="../../ofExample/bin/data/hyphenate/en"/>
+            <File Name="../../ofExample/bin/data/hyphenate/de"/>
+            <File Name="../../ofExample/bin/data/hyphenate/de-1901"/>
+          </VirtualDirectory>
+        </VirtualDirectory>
+        <File Name="../../ofExample/bin/ofExample_debug"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="src">
+        <File Name="../../ofExample/src/ofTextBlockDrawer.cpp"/>
+        <File Name="../../ofExample/src/ofTextBlockDrawer.h"/>
+        <File Name="../../ofExample/src/testApp.cpp"/>
+        <File Name="../../ofExample/src/main.cpp"/>
+        <File Name="../../ofExample/src/testApp.h"/>
+      </VirtualDirectory>
+      <File Name="../../ofExample/Makefile"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="libs">
+      <VirtualDirectory Name="utf8">
+        <VirtualDirectory Name="utf8">
+          <File Name="../../libs/utf8/utf8/checked.h"/>
+          <File Name="../../libs/utf8/utf8/core.h"/>
+          <File Name="../../libs/utf8/utf8/unchecked.h"/>
+        </VirtualDirectory>
+        <File Name="../../libs/utf8/utf8.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="libhyphenate">
+        <VirtualDirectory Name="include">
+          <File Name="../../libs/libhyphenate/include/Hyphenator.h"/>
+          <File Name="../../libs/libhyphenate/include/HyphenationTree.h"/>
+          <File Name="../../libs/libhyphenate/include/Language.h"/>
+          <File Name="../../libs/libhyphenate/include/HyphenationRule.h"/>
+          <File Name="../../libs/libhyphenate/include/hyphenate.h"/>
+        </VirtualDirectory>
+        <VirtualDirectory Name="src">
+          <File Name="../../libs/libhyphenate/src/HyphenationTree.cpp"/>
+          <File Name="../../libs/libhyphenate/src/Hyphenator.cpp"/>
+          <File Name="../../libs/libhyphenate/src/Language.cpp"/>
+          <File Name="../../libs/libhyphenate/src/hyphenate.cpp"/>
+          <File Name="../../libs/libhyphenate/src/HyphenationRule.cpp"/>
+        </VirtualDirectory>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="src">
+      <File Name="../../src/Font.h"/>
+      <File Name="../../src/Types.h"/>
+      <File Name="../../src/Types.cpp"/>
+      <File Name="../../src/TextBlockDrawer.h"/>
+      <File Name="../../src/TextBlockDrawer.cpp"/>
+      <File Name="../../src/TextBlock.cpp"/>
+      <File Name="../../src/Font.cpp"/>
+      <File Name="../../src/TextBlock.h"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
+    </Plugin>
+  </Plugins>
+  <Description/>
+  <Dependencies/>
+  <VirtualDirectory Name="src">
+    <File Name="../src/testApp.cpp"/>
+    <File Name="../src/testApp.h"/>
+    <File Name="../src/main.cpp"/>
+    <File Name="../src/ofTextBlockDrawer.h"/>
+    <File Name="../src/ofTextBlockDrawer.cpp"/>
+    <File Name="../src/libharuTextBlockDrawer.h"/>
+    <File Name="../src/libharuTextBlockDrawer.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="config">
+    <File Name="../Makefile"/>
+    <File Name="../config.make"/>
+    <File Name="../addons.make"/>
+  </VirtualDirectory>
+  <Settings Type="Dynamic Library">
+    <GlobalSettings>
+      <Compiler Options="" C_Options="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="Debug" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g" C_Options="-g" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="" IntermediateDirectory="./Debug" Command="./$(ProjectName)_debug" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(WorkspacePath)/../bin" PauseExecWhenProcTerminates="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="yes">
+        <RebuildCommand/>
+        <CleanCommand>make clean Debug</CleanCommand>
+        <BuildCommand>make Debug</BuildCommand>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory>$(WorkspacePath)/..</WorkingDirectory>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="Release" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="" C_Options="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="-O2" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="" IntermediateDirectory="./Release" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(WorkspacePath)/../bin" PauseExecWhenProcTerminates="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="yes">
+        <RebuildCommand/>
+        <CleanCommand>make clean Release</CleanCommand>
+        <BuildCommand>make Release</BuildCommand>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory>$(WorkspacePath)/..</WorkingDirectory>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+  <VirtualDirectory Name="addons">
+    <VirtualDirectory Name="ofxLibharu">
+      <VirtualDirectory Name="src">
+        <File Name="../../../../addons/ofxLibharu/src/ofxLibharuErrors.h"/>
+        <File Name="../../../../addons/ofxLibharu/src/ofxLibharu.cpp"/>
+        <File Name="../../../../addons/ofxLibharu/src/ofxLibharu.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="libs">
+        <VirtualDirectory Name="libharu">
+          <VirtualDirectory Name="include">
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_pdfa.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_encrypt.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_image.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_u3d.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_annotation.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/t4.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_conf.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_mmgr.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_exdata.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_list.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_consts.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_fontdef.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_destination.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_utils.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_gstate.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_version.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_font.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_doc.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_objects.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_pages.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_ext_gstate.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_error.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_types.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_catalog.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_info.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_page_label.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_outline.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_namedict.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_3dmeasure.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_streams.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_encryptdict.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_encoder.h"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/include/hpdf_config.h"/>
+          </VirtualDirectory>
+          <VirtualDirectory Name="src">
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_encoder.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_xref.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_pages.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_font_type1.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_3dmeasure.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_exdata.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_binary.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_image_ccitt.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_name.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_utils.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_error.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_array.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_fontdef_cns.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_image.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_annotation.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_doc.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_u3d.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_ext_gstate.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_objects.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_info.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_image_png.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_fontdef_cid.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_string.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_null.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_encoder_jp.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_page_label.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_pdfa.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_fontdef_tt.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_list.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_fontdef_kr.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_fontdef_base14.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_namedict.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_encoder_cns.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_encrypt.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_destination.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_encoder_kr.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_doc_png.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_encryptdict.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_font_tt.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_fontdef_cnt.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_fontdef_type1.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_real.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_encoder_cnt.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_outline.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_catalog.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_fontdef_jp.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_streams.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_page_operator.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_dict.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_gstate.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_boolean.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_font.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_mmgr.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_fontdef.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_font_cid.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_number.c"/>
+            <File Name="../../../../addons/ofxLibharu/libs/libharu/src/hpdf_encoder_utf.c"/>
+          </VirtualDirectory>
+        </VirtualDirectory>
+      </VirtualDirectory>
+    </VirtualDirectory>
+  </VirtualDirectory>
+</CodeLite_Project>

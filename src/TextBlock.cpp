@@ -135,6 +135,7 @@ void TextBlock::recalculate() {
 
 		Letter letter;
 		letter.character = character;
+		letter.utf8Character = *it;
 		letter.font = fontFamily->getNormal();
 
 		Glyph& glyph = letter.font->getGlyphList(fontSize).getGlyph(character);

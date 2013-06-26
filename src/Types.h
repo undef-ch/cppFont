@@ -69,8 +69,9 @@ public:
 	float y;
 	Font* font;
 	Glyph* glyph;
-	int size;
+	unsigned short utf8Character;
 	unsigned char character;
+	int size;
 };
 
 

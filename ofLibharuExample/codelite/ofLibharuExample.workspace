@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeLite_Workspace Name="ofLibharuExample" Database="./ofLibharuExample.tags">
+  <Environment>
+    <![CDATA[
+  
+  
+  ]]>
+  </Environment>
+  <Project Name="ofLibharuExample" Path="ofLibharuExample.project" Active="Yes"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
+      <Project Name="linux" ConfigName="Debug"/>
+      <Project Name="ofLibharuExample" ConfigName="Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release" Selected="yes">
+      <Project Name="linux" ConfigName="Release"/>
+      <Project Name="ofLibharuExample" ConfigName="Release"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>

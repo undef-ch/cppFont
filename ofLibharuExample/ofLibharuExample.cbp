@@ -1,0 +1,330 @@
+<?xml version="1.0"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ofLibharuExample" />
+		<Option makefile_is_custom="1" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="addons/;src/;build config/;" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/$(PROJECT_NAME)_debug" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin" />
+				<Option object_output="obj/Debug/" />
+				<Option external_deps="../../../libs/openFrameworksCompiled/lib/linux64/libopenFrameworksDebug.a;" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+			</Target>
+			<Target title="Release">
+				<Option output="bin/$(PROJECT_NAME)" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin" />
+				<Option object_output="obj/Release/" />
+				<Option external_deps="../../../libs/openFrameworksCompiled/lib/linux64/libopenFrameworks.a;" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+			</Target>
+		</Build>
+		<Unit filename="config.make">
+			<Option virtualFolder="build config" />
+		</Unit>
+		<Unit filename="src/main.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="src/testApp.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="src/testApp.h">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+		<Unit filename="../../../addons/ofxLibharu/src/ofxLibharuErrors.h">
+			<Option virtualFolder="addons/ofxLibharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/src/ofxLibharu.cpp">
+			<Option virtualFolder="addons/ofxLibharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/src/ofxLibharu.h">
+			<Option virtualFolder="addons/ofxLibharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_pdfa.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_encrypt.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_image.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_u3d.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_annotation.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/t4.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_conf.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_mmgr.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_exdata.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_list.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_consts.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_fontdef.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_destination.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_utils.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_gstate.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_version.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_font.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_doc.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_objects.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_pages.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_ext_gstate.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_error.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_types.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_catalog.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_info.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_page_label.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_outline.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_namedict.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_3dmeasure.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_streams.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_encryptdict.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_encoder.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/include/hpdf_config.h">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_encoder.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_xref.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_pages.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_font_type1.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_3dmeasure.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_exdata.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_binary.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_image_ccitt.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_name.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_utils.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_error.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_array.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_fontdef_cns.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_image.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_annotation.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_doc.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_u3d.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_ext_gstate.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_objects.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_info.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_image_png.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_fontdef_cid.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_string.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_null.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_encoder_jp.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_page_label.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_pdfa.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_fontdef_tt.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_list.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_fontdef_kr.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_fontdef_base14.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_namedict.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_encoder_cns.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_encrypt.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_destination.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_encoder_kr.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_doc_png.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_encryptdict.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_font_tt.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_fontdef_cnt.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_fontdef_type1.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_real.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_encoder_cnt.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_outline.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_catalog.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_fontdef_jp.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_streams.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_page_operator.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_dict.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_gstate.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_boolean.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_font.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_mmgr.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_fontdef.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_font_cid.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_number.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxLibharu/libs/libharu/src/hpdf_encoder_utf.c">
+			<Option virtualFolder="addons/ofxLibharu/libs/libharu/src" />
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
