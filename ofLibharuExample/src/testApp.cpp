@@ -8,13 +8,17 @@ void testApp::setup(){
 	//textBlock.enableHyphenation("de", ofToDataPath("hyphenate/"));
 	textBlock.setFontFamily(&fontFamily);
 	textBlock.setLetterSpacing(0);
-	textBlock.setFontSize(6);
-	textBlock.setText("Wüsten & Höcker. Dies ist ein ganz normaler Text, der irgendwo auch umgebrochen werden sollte. Das hoffen wir ganz fest!");
-	textBlock.setWidth(200);
+	textBlock.setFontSize(30);
+	textBlock.setText("Noch viel mehr Text, der aus den Fingern auf das digitale Blatt fliess tund dann überall gleich aussieht. Wüsten & Höcker. Dies ist ein ganz normaler Text, der irgendwo auch umgebrochen werden sollte. Das hoffen wir ganz fest!");
+	textBlock.setWidth(900);
 	
 	pdf.setup(ofxLibharu::A4, ofxLibharu::LANDSCAPE);
+	pdf.setUnit(ofxLibharu::CM);
+	pdf.setLineWidth(.1);
 	libhTextDrawer.setPdf(&pdf);
 	textBlock.draw(&libhTextDrawer);
+	textBlock.debugDraw(&libhTextDrawer);
+
 	pdf.save("test.pdf", true);
 	pdf.openLastSave();
 }

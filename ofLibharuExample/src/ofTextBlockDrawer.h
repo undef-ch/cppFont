@@ -5,11 +5,11 @@
 #include "ofMain.h"
 #include <map>
 
-class ofTextBlockDrawer : public cppFont::TextBlockDrawer
+class TextBlockDrawer : public cppFont::TextBlockDrawer
 {
 public:
-	ofTextBlockDrawer();
-	~ofTextBlockDrawer();
+	TextBlockDrawer();
+	~TextBlockDrawer();
 	
 	void setFont(cppFont::Font* font, int fontSize);
 	bool allocateFont(cppFont::Font* font, int fontSize);

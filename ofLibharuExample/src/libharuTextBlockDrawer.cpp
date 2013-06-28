@@ -14,13 +14,13 @@ void libharuTextBlockDrawer::setPdf(ofxLibharu* _pdf){
 
 void libharuTextBlockDrawer::setFont(cppFont::Font* font, int fontSize){
 	pdf->setFont(font->filePath);
-	pdf->setFontSize(fontSize);
+	pdf->setFontSize(fontSize*1.4);
 }
 
 void libharuTextBlockDrawer::drawCharacter(cppFont::Letter& letter){
 	string s = "";
 	s+=letter.character;
-	pdf->drawText(s, letter.x, letter.y );
+	pdf->drawText(s, letter.x, letter.y + letter.size*.065 );
 }
 
 void libharuTextBlockDrawer::drawRect(float x, float y, float width, float height){

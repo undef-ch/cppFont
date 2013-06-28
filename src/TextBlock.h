@@ -21,18 +21,25 @@ public:
 	void enableHyphenation(std::string language, std::string dataPath);
 	void setFontFamily(FontFamily* family);
 	void setText(std::string text);
-	float getHeight(float width);
+	float getHeight();
+	float getWidth();
 	void setLeading(float leading);
 	void setLineHeight(float lineHeight);
 	void setLetterSpacing(float letterSpacing);
 	void setWordSpacing(float wordSpacing);
 	void setFontSize(int fontSize);
 	void setHeightAuto(bool state);
+	void setWidthAuto(bool state);
 	void setWidth(float width);
 	void setHeight(float height);
 	
+	FontFamily* getFontFamily();
+	
 	void draw(TextBlockDrawer* drawer);
 	void debugDraw(TextBlockDrawer* drawer);
+	
+	void setDirty();
+	
 private:
 	void recalculate();
 	
@@ -44,7 +51,7 @@ private:
 	Value<float> wordSpacing;
 	
 	std::string text;
-	std::vector<Style> styles;
+	std::vector<StyleSection> styles;
 	Value<bool> heightAuto;
 	Value<bool> widthAuto;
 	Value<float> width;

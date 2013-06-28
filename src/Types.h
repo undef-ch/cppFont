@@ -17,6 +17,10 @@ class Value{
 		
 	}
 	
+	Value(Type t){
+		set(t);
+	}
+	
 	operator const Type() const {
 		return value;
 	}
@@ -56,7 +60,7 @@ private:
 	bool bSet;
 };
 	
-class Style{
+class StyleSection{
 public:
 	int start;
 	int end;

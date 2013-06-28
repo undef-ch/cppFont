@@ -19,10 +19,6 @@ public:
 	void drawLine(float x, float y, float x2, float y2);
 
 	
-	map<int, map<int, std::vector<ofImage> > > images;
-	std::vector<ofImage>* curImages;
-	cppFont::GlyphList* curGlyphList;
-	
 	private:
 	ofxLibharu* pdf;
 };

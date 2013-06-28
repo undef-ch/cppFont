@@ -89,7 +89,7 @@ Font::Font(std::string fontPath):isLoaded(false), hasKerning(false) {
 	FT_Select_Charmap(face , ft_encoding_unicode);
 	hasKerning = FT_HAS_KERNING( face );
 	
-	descender = -face->descender * 1 / 60.f;
+	descender = -face->descender * 1/60.f;	
 }
 
 Font::~Font() {
@@ -142,7 +142,10 @@ float Font::getKerningX(unsigned char a, unsigned char b) {
 	FT_Get_Kerning( face, g1, g2,
 	                FT_KERNING_DEFAULT, &delta );
 
-	return delta.x >> 6;
+	float ret =  delta.x >> 6;
+	/*if(ret>0)
+		ret = 0;*/
+	return ret;
 }
 
 /*************************** FONT FAMILY *************************/

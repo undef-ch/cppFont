@@ -24,5 +24,5 @@ class testApp : public ofBaseApp{
 		cppFont::TextBlock textBlock;
 		cppFont::FontFamily fontFamily;
 		
-		ofTextBlockDrawer textDrawer;
+		TextBlockDrawer textDrawer;
 };

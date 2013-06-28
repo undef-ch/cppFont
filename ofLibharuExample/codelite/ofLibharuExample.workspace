@@ -8,7 +8,7 @@
   </Environment>
   <Project Name="ofLibharuExample" Path="ofLibharuExample.project" Active="Yes"/>
   <BuildMatrix>
-    <WorkspaceConfiguration Name="Debug" Selected="yes">
+    <WorkspaceConfiguration Name="Debug" Selected="no">
       <Project Name="linux" ConfigName="Debug"/>
       <Project Name="ofLibharuExample" ConfigName="Debug"/>
     </WorkspaceConfiguration>
