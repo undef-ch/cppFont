@@ -79,7 +79,6 @@ Hyphenate::Hyphenator::Hyphenator(const RFC_3066::Language& lang, std::string di
 	}else{
 		path = dir;
 	}
-
 	string filename = lang.find_suitable_file(path);
 	dictionary = read_hyphenation_table(filename.c_str());
 }

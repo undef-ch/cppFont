@@ -51,6 +51,12 @@ float TextBlock::getWidth() {
 	return width;
 }
 
+unsigned int TextBlock::getNumLines()
+{
+	recalculate();
+	return numLines;
+}
+
 void TextBlock::setFontFamily(FontFamily* family) {
 	if(fontFamily == family)
 		return;
@@ -134,9 +140,14 @@ void TextBlock::draw(TextBlockDrawer* drawer) {
 		}
 	}
 
+	Font* oldFont = NULL;
+
 	for(std::vector<Letter>::iterator it = letters.begin(); it != letters.end(); ++it) {
 		Letter& l = *it;
-		drawer->setFont(l.font, fontSize);
+		if(l.font != oldFont) {
+			drawer->setFont(l.font, fontSize);
+			oldFont = l.font;
+		}
 		drawer->drawCharacter(*it);
 	}
 }
@@ -150,6 +161,15 @@ void TextBlock::debugDraw(TextBlockDrawer* drawer) {
 	}
 }
 
+FontFamily* TextBlock::getFontFamily() {
+	return fontFamily;
+}
+
+std::string TextBlock::getOverflow()
+{
+	return overflow;
+}
+
 void TextBlock::recalculate() {
 	if(!isDirty)
 		return;
@@ -160,139 +180,171 @@ void TextBlock::recalculate() {
 	if(fontFamily->getNormal() == NULL)
 		return;
 
-	letters.clear();
-	usedFonts.clear();
-	textUtf16.clear();
-	numLines = 0;
-	float lineH = lineHeight;
+	//calculate lineHeight
+	curLineHeight = lineHeight;
 	if(!lineHeight.isSet())
-		lineH = fontSize*1.5f;
+		curLineHeight = fontSize*1.5f;
 
+	//reset old values
+	textUtf16.clear();
 	utf8::utf8to16(text.begin(), text.end(), back_inserter(textUtf16));
 
-	std::vector<unsigned short>::iterator lastWordBeginning = textUtf16.begin();
-	unsigned char lastCharacter = 0;
-	unsigned int charsInLine = 0;
-	unsigned int wordsInLine = 0;
-	bool onHyphenate = false;
+	letters.clear();
+	usedFonts.clear();
 
-	float curX = 0;
-	float curY = fontSize;
-	float lastWordBeginningX = 0;
-	for(std::vector<unsigned short>::iterator it = textUtf16.begin(); it != textUtf16.end(); ++it) {
-		bool useLetter = true;
-		unsigned char character = *it;
+	curX = 0;
+	curY = fontSize;
+	int curWordLength = 0;
 
-		if(character == ' ') {
-			lastWordBeginning = it;
-		}
+	curFont = NULL;
+	curGlyphs = NULL;
 
-		Letter letter;
-		letter.character = character;
-		letter.utf8Character = *it;
-		letter.font = fontFamily->getNormal();
+	unsigned char nextLetter = ' ';
+	//loop text and do it
+	for(curIt = textUtf16.begin(); curIt != textUtf16.end(); ++curIt) {
+		curCharacter = *curIt;
 
-		Glyph& glyph = letter.font->getGlyphList(fontSize).getGlyph(character);
-		letter.glyph = &glyph;
-		letter.x = curX;
-		letter.y = curY;
-		letter.size = fontSize;
+		if(curIt+1 != textUtf16.end())
+			nextLetter = *(curIt+1);
+		else
+			nextLetter = ' ';
 
-		//advance
-		if(character == ' ') {
-			curX += glyph.advanceX + wordSpacing;
-			lastWordBeginningX = curX;
-			wordsInLine++;
-		} else {
-			curX += glyph.advanceX + letterSpacing;
-		}
+		Letter letter = createLetter(*curIt);
+		letters.push_back(letter);
 
-		if(it+1 != textUtf16.end()) {
-			curX += letter.font->getKerningX(character, *(it+1));
-		}
+		//adjust current word length
+		curWordLength++;
+		if(curCharacter == ' ')
+			curWordLength = 0;
 
-		if(widthAuto == false && width.isSet() && curX > width) {
-			bool skipLineBreak = false;
-			if(bHyphenate && !onHyphenate) {
 
-				std::string curWord = "";
-				std::vector<unsigned short>::iterator wordIt = lastWordBeginning+1;
+		//then calculate positions for the next letter
+		curX += letter.glyph->advanceX;
+		
+		//character specific actions
+		if(curCharacter == '\n')
+			newLine();
+		
+		//we have a set width
+		if(!widthAuto) {
+			if(curX >= width) {
 
-				while(wordIt != textUtf16.end() && (*wordIt) != ' ' && (*wordIt) != '-') {
-					curWord += *wordIt;
-					wordIt++;
-				}
-				std::string hyphen = hyphenator->hyphenate(curWord);
-				std::vector<string> parts = stringSplit(hyphen, '-');
-				if(parts.size()>1) {
-					int maxDistance = (int)std::distance(it, wordIt);
-					int breakPos = 0;
-					std::vector<string>::iterator partsIt = parts.begin();
-					while(partsIt != parts.end() && (breakPos + (*partsIt).size()) < maxDistance) {
-						breakPos += (*partsIt).size();
-						partsIt++;
+				//go back to the last word space if no hyphenation
+				if(!bHyphenate) {
+					stepBack(curWordLength);
+					newLine();
+				} else {
+					//let's hypenate!
+
+					//first find the current word and convert it to libhyphenate compatible utf8
+					std::string word;
+					std::vector<unsigned short>::iterator itBegin = curIt - curWordLength;
+					itBegin++;
+					std::vector<unsigned short>::iterator itEnd = itBegin; 
+					while(itEnd != textUtf16.end() && *itEnd != ' ') {
+						word += *itEnd;
+						itEnd++;
 					}
-
-					if(breakPos > 0) {
-						textUtf16.insert(lastWordBeginning+breakPos+1, ' ');
-						textUtf16.insert(lastWordBeginning+breakPos+1, '-');
-						skipLineBreak = true;
-
-						int toErase = std::distance(lastWordBeginning, it);
-
-						curX = lastWordBeginningX;
-						letters.erase(letters.end()-toErase, letters.end());
-
-						it = lastWordBeginning;
-
-						onHyphenate = true;
+					
+					string utf8Word; 
+					utf8::utf16to8(itBegin, itEnd, back_inserter(utf8Word));
+					
+					//now hyphenate and analyze result
+					Glyph delimGlyph = curGlyphs->getGlyph('-');
+					float delimWidth = delimGlyph.advanceX;
+					std::string hyphen = hyphenator->hyphenate(utf8Word);
+					
+					std::vector<string> parts = stringSplit(hyphen, '-');
+					if(parts.size() == 1) { // no hyphenation, simple line break
+						stepBack(curWordLength);
+						newLine();
+					} else {
+						int splitAt = 0;
+						
+						//curWordLength > parts[0].size()
+						
+						for(vector<string>::iterator it = parts.begin(); it < parts.end(); it++){
+							int newSplitAt = splitAt + (*it).size();
+							if(newSplitAt < curWordLength - 1){ //todo: check for actual '-' width
+								splitAt = newSplitAt;
+							}else{
+								break;
+							}
+						}
+						
+						if(splitAt > 0){
+							stepBack(curWordLength - splitAt);
+							//add the - delimiter
+							Letter letter = createLetter('-');
+							letter.x = letters.back().x + letters.back().glyph->advanceX + letterSpacing;
+							letters.push_back(letter);
+							newLine();
+						}else{
+							stepBack(curWordLength);
+							newLine();
+						}
 					}
 				}
 			}
-
-			if(!skipLineBreak) {
-
-				curY += lineH;
-				curX = 0;
-
-				if(wordsInLine > 0) { //check if there are some words in the line, if not, the word is too long for the line and we force a break
-					int toErase = std::distance(lastWordBeginning, it);
-					letters.erase(letters.end()-toErase, letters.end());
-					it = lastWordBeginning;
-					useLetter = false;
-				}
-				charsInLine = 0;
-				wordsInLine = 0;
-				numLines++;
-				onHyphenate = false;
-			}
 		}
 
-		if(useLetter) {
-			letters.push_back(letter);
-			charsInLine++;
+		//add spacing after checking for box boundaries
+		if(curX != 0) {
+			if(curCharacter == ' ')
+				curX += wordSpacing;
+			else
+				curX += letterSpacing;
 		}
 
-		//update the letters
-		if(std::find(usedFonts.begin(), usedFonts.end(), letter.font) == usedFonts.end()) {
-			usedFonts.push_back(letter.font);
+		//we have a set height
+		if(!heightAuto && curY > height) {
+			overflow = "";
+			utf8::utf16to8(curIt, textUtf16.end(), back_inserter(overflow));
+			break;
 		}
-
-		lastCharacter = character;
 	}
 
-	numLines++;
-
-	if(heightAuto == true) {
-		height = curY - fontSize + lineH;
-	}
-	if(widthAuto == true) {
-		width = curX;
+	if(heightAuto) {
+		height = (numLines + 1) * curLineHeight;
 	}
 
+	//remove duplicated entries in the used Fonts vector
+	sort( usedFonts.begin(), usedFonts.end() );
+	usedFonts.erase( unique( usedFonts.begin(), usedFonts.end() ), usedFonts.end() );
+
+	//not dirty anymore
 	isDirty = false;
 }
 
-FontFamily* TextBlock::getFontFamily() {
-	return fontFamily;
+void TextBlock::newLine() {
+	curY += curLineHeight;
+	curX = 0;
+	numLines++;
 }
+
+void TextBlock::stepBack(int amount) {
+	letters.erase(letters.end()-amount, letters.end());
+	curIt -= amount;
+}
+
+Letter TextBlock::createLetter(unsigned short character) {
+	Letter letter;
+	letter.character = character;
+	letter.utf8Character = character;
+	letter.font = fontFamily->getNormal();
+	letter.size = fontSize;
+
+	//check if the font has changed
+	if(curFont != letter.font) {
+		curFont = letter.font;
+		usedFonts.push_back(curFont);
+		curGlyphs = &curFont->getGlyphList(fontSize);
+	}
+	letter.glyph = &curGlyphs->getGlyph(letter.character);
+
+	//set the last calculated positions for this new letter
+	letter.x = curX;
+	letter.y = curY;
+	return letter;
+}
+

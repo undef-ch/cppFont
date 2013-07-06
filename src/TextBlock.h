@@ -23,6 +23,7 @@ public:
 	void setText(std::string text);
 	float getHeight();
 	float getWidth();
+	unsigned int getNumLines();
 	void setLeading(float leading);
 	void setLineHeight(float lineHeight);
 	void setLetterSpacing(float letterSpacing);
@@ -32,6 +33,8 @@ public:
 	void setWidthAuto(bool state);
 	void setWidth(float width);
 	void setHeight(float height);
+	
+	std::string getOverflow();
 	
 	FontFamily* getFontFamily();
 	
@@ -57,7 +60,7 @@ private:
 	Value<float> width;
 	Value<float> height;
 	int fontSize;
-	int numLines;
+	unsigned int numLines;
 	bool isDirty;
 	
 	std::vector<Letter> letters;
@@ -67,6 +70,20 @@ private:
 	bool bHyphenate;
 	
 	Hyphenate::Hyphenator* hyphenator;
+	
+	//INTERNALS FOR LOOP CALCULATION	
+	void newLine();
+	void stepBack(int amount);
+	Letter createLetter(unsigned short character);
+	float curX;
+	float curY;
+	float curLineHeight;
+	cppFont::GlyphList* curGlyphs;
+	cppFont::Font* curFont;
+	std::vector<unsigned short>::iterator curIt;
+	unsigned char curCharacter;
+	
+	std::string overflow;
 };
 
 }
