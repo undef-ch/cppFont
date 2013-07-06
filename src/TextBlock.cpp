@@ -191,6 +191,8 @@ void TextBlock::recalculate() {
 
 	letters.clear();
 	usedFonts.clear();
+	
+	numLines = 0;
 
 	curX = 0;
 	curY = fontSize;
