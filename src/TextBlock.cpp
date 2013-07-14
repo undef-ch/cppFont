@@ -41,6 +41,11 @@ void TextBlock::setText(std::string t) {
 	text = t;
 }
 
+std::string TextBlock::getText()
+{
+	return text;
+}
+
 float TextBlock::getHeight() {
 	recalculate();
 	return height;
@@ -349,4 +354,3 @@ Letter TextBlock::createLetter(unsigned short character) {
 	letter.y = curY;
 	return letter;
 }
-

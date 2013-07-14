@@ -21,6 +21,7 @@ public:
 	void enableHyphenation(std::string language, std::string dataPath);
 	void setFontFamily(FontFamily* family);
 	void setText(std::string text);
+	std::string getText();
 	float getHeight();
 	float getWidth();
 	unsigned int getNumLines();
