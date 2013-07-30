@@ -39,6 +39,7 @@ void TextBlock::setText(std::string t) {
 		cout << "Invalid UTF-8 encoding detected " << t << "\n";
 	}
 	text = t;
+	setDirty();
 }
 
 std::string TextBlock::getText()
@@ -160,7 +161,7 @@ void TextBlock::draw(TextBlockDrawer* drawer) {
 void TextBlock::debugDraw(TextBlockDrawer* drawer) {
 	recalculate();
 	drawer->drawRect(0, 0, width, height);
-	for(int i = 0; i<numLines; i++) {
+	for(unsigned int i = 0; i<numLines; i++) {
 		float y = i * lineHeight;
 		drawer->drawLine(0, y, width, y);
 	}
@@ -172,6 +173,7 @@ FontFamily* TextBlock::getFontFamily() {
 
 std::string TextBlock::getOverflow()
 {
+	recalculate();
 	return overflow;
 }
 
@@ -179,12 +181,16 @@ void TextBlock::recalculate() {
 	if(!isDirty)
 		return;
 
-	if(fontFamily == NULL)
+	if(fontFamily == NULL){
+		
 		return;
+	}
+		
 
-	if(fontFamily->getNormal() == NULL)
+	if(fontFamily->getNormal() == NULL){
 		return;
-
+	}
+	
 	//calculate lineHeight
 	curLineHeight = lineHeight;
 	if(!lineHeight.isSet())
@@ -205,7 +211,9 @@ void TextBlock::recalculate() {
 
 	curFont = NULL;
 	curGlyphs = NULL;
-
+	
+	overflow = "";
+	
 	unsigned char nextLetter = ' ';
 	//loop text and do it
 	for(curIt = textUtf16.begin(); curIt != textUtf16.end(); ++curIt) {
@@ -305,12 +313,13 @@ void TextBlock::recalculate() {
 
 		//we have a set height
 		if(!heightAuto && curY > height) {
-			overflow = "";
 			utf8::utf16to8(curIt, textUtf16.end(), back_inserter(overflow));
 			break;
 		}
 	}
-
+	
+	
+		
 	if(heightAuto) {
 		height = (numLines + 1) * curLineHeight;
 	}
