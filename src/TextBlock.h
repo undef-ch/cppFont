@@ -11,10 +11,9 @@
 
 #include "Hyphenator.h"
 
-namespace cppFont{
+namespace cppFont {
 
-class TextBlock
-{
+class TextBlock {
 public:
 	TextBlock();
 	~TextBlock();
@@ -34,26 +33,28 @@ public:
 	void setWidthAuto(bool state);
 	void setWidth(float width);
 	void setHeight(float height);
-	
+
 	std::string getOverflow();
-	
+
 	FontFamily* getFontFamily();
-	
+
 	void draw(TextBlockDrawer* drawer);
 	void debugDraw(TextBlockDrawer* drawer);
-	
+
 	void setDirty();
-	
+
+	TextBlockImage getAsImage(); //TODO: add an additional scale parameter
+
 private:
 	void recalculate();
-	
+
 	FontFamily* fontFamily;
-	
+
 	Value<float> leading;
 	Value<float> lineHeight;
 	Value<float> letterSpacing;
 	Value<float> wordSpacing;
-	
+
 	std::string text;
 	std::vector<StyleSection> styles;
 	Value<bool> heightAuto;
@@ -63,16 +64,16 @@ private:
 	int fontSize;
 	unsigned int numLines;
 	bool isDirty;
-	
+
 	std::vector<Letter> letters;
 	std::vector<Font*> usedFonts;
 	std::vector<unsigned short> textUtf16;
-	
+
 	bool bHyphenate;
-	
+
 	Hyphenate::Hyphenator* hyphenator;
-	
-	//INTERNALS FOR LOOP CALCULATION	
+
+	//INTERNALS FOR LOOP CALCULATION
 	void newLine();
 	void stepBack(int amount);
 	Letter createLetter(unsigned short character);
@@ -83,7 +84,7 @@ private:
 	cppFont::Font* curFont;
 	std::vector<unsigned short>::iterator curIt;
 	unsigned char curCharacter;
-	
+
 	std::string overflow;
 };
 

@@ -9,18 +9,24 @@
 namespace cppFont
 {
 
+class TextBlockImage {
+public:
+	unsigned char* pixels;
+	unsigned int width;
+	unsigned int height;
+};
 
 template<typename Type>
 class Value{
 	public:
 	Value():bSet(false){
-		
+
 	}
-	
+
 	Value(Type t){
 		set(t);
 	}
-	
+
 	operator const Type() const {
 		return value;
 	}
@@ -49,17 +55,17 @@ class Value{
 		oldValue = value;
 		value = val;
 	}
-	
+
 	bool isSet(){
 		return bSet;
 	}
-	
+
 private:
 	Type value;
 	Type oldValue;
 	bool bSet;
 };
-	
+
 class StyleSection{
 public:
 	int start;

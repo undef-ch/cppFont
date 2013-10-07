@@ -16,8 +16,8 @@ class Glyph {
 public:
 	float width;
 	float height;
-	int bitmapWidth;
-	int bitmapHeight;
+	unsigned int bitmapWidth;
+	unsigned int bitmapHeight;
 	int hang;
 	float offsetY;
 	float advanceX;
@@ -50,9 +50,9 @@ public:
 	GlyphList& getGlyphList(int size);
 
 	float getKerningX(unsigned char a, unsigned char b);
-	
+
 	float getDescender();
-	
+
 	bool hasKerning;
 
 	/*static freetpye */

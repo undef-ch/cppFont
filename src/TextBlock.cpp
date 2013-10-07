@@ -22,6 +22,7 @@ std::vector<std::string> stringSplit(const std::string &s, char delim) {
 
 TextBlock::TextBlock():fontSize(15),isDirty(true),bHyphenate(false),heightAuto(true),widthAuto(true) {
 	Font::initFreetype();
+	text = "";
 }
 
 TextBlock::~TextBlock() {
@@ -37,13 +38,14 @@ void TextBlock::setText(std::string t) {
 	string::iterator end_it = utf8::find_invalid(t.begin(), t.end());
 	if (end_it != t.end()) {
 		cout << "Invalid UTF-8 encoding detected " << t << "\n";
+		//check for valid utf-8
+		t = string(t.begin(), end_it);
 	}
 	text = t;
 	setDirty();
 }
 
-std::string TextBlock::getText()
-{
+std::string TextBlock::getText() {
 	return text;
 }
 
@@ -57,8 +59,7 @@ float TextBlock::getWidth() {
 	return width;
 }
 
-unsigned int TextBlock::getNumLines()
-{
+unsigned int TextBlock::getNumLines() {
 	recalculate();
 	return numLines;
 }
@@ -171,26 +172,26 @@ FontFamily* TextBlock::getFontFamily() {
 	return fontFamily;
 }
 
-std::string TextBlock::getOverflow()
-{
+std::string TextBlock::getOverflow() {
 	recalculate();
 	return overflow;
 }
 
 void TextBlock::recalculate() {
+
 	if(!isDirty)
 		return;
 
-	if(fontFamily == NULL){
-		
-		return;
-	}
-		
+	if(fontFamily == NULL) {
 
-	if(fontFamily->getNormal() == NULL){
 		return;
 	}
-	
+
+
+	if(fontFamily->getNormal() == NULL) {
+		return;
+	}
+
 	//calculate lineHeight
 	curLineHeight = lineHeight;
 	if(!lineHeight.isSet())
@@ -202,7 +203,7 @@ void TextBlock::recalculate() {
 
 	letters.clear();
 	usedFonts.clear();
-	
+
 	numLines = 0;
 
 	curX = 0;
@@ -211,9 +212,9 @@ void TextBlock::recalculate() {
 
 	curFont = NULL;
 	curGlyphs = NULL;
-	
+
 	overflow = "";
-	
+
 	unsigned char nextLetter = ' ';
 	//loop text and do it
 	for(curIt = textUtf16.begin(); curIt != textUtf16.end(); ++curIt) {
@@ -235,11 +236,11 @@ void TextBlock::recalculate() {
 
 		//then calculate positions for the next letter
 		curX += letter.glyph->advanceX;
-		
+
 		//character specific actions
 		if(curCharacter == '\n')
 			newLine();
-		
+
 		//we have a set width
 		if(!widthAuto) {
 			if(curX >= width) {
@@ -255,46 +256,46 @@ void TextBlock::recalculate() {
 					std::string word;
 					std::vector<unsigned short>::iterator itBegin = curIt - curWordLength;
 					itBegin++;
-					std::vector<unsigned short>::iterator itEnd = itBegin; 
+					std::vector<unsigned short>::iterator itEnd = itBegin;
 					while(itEnd != textUtf16.end() && *itEnd != ' ') {
 						word += *itEnd;
 						itEnd++;
 					}
-					
-					string utf8Word; 
+
+					string utf8Word;
 					utf8::utf16to8(itBegin, itEnd, back_inserter(utf8Word));
-					
+
 					//now hyphenate and analyze result
-					Glyph delimGlyph = curGlyphs->getGlyph('-');
-					float delimWidth = delimGlyph.advanceX;
+					//Glyph delimGlyph = curGlyphs->getGlyph('-');
+					//float delimWidth = delimGlyph.advanceX;
 					std::string hyphen = hyphenator->hyphenate(utf8Word);
-					
+
 					std::vector<string> parts = stringSplit(hyphen, '-');
 					if(parts.size() == 1) { // no hyphenation, simple line break
 						stepBack(curWordLength);
 						newLine();
 					} else {
 						int splitAt = 0;
-						
+
 						//curWordLength > parts[0].size()
-						
-						for(vector<string>::iterator it = parts.begin(); it < parts.end(); it++){
+
+						for(vector<string>::iterator it = parts.begin(); it < parts.end(); it++) {
 							int newSplitAt = splitAt + (*it).size();
-							if(newSplitAt < curWordLength - 1){ //todo: check for actual '-' width
+							if(newSplitAt < curWordLength - 1) { //todo: check for actual '-' width
 								splitAt = newSplitAt;
-							}else{
+							} else {
 								break;
 							}
 						}
-						
-						if(splitAt > 0){
+
+						if(splitAt > 0) {
 							stepBack(curWordLength - splitAt);
 							//add the - delimiter
 							Letter letter = createLetter('-');
 							letter.x = letters.back().x + letters.back().glyph->advanceX + letterSpacing;
 							letters.push_back(letter);
 							newLine();
-						}else{
+						} else {
 							stepBack(curWordLength);
 							newLine();
 						}
@@ -314,15 +315,20 @@ void TextBlock::recalculate() {
 		//we have a set height
 		if(!heightAuto && curY > height) {
 			utf8::utf16to8(curIt, textUtf16.end(), back_inserter(overflow));
+			string::iterator end_it = utf8::find_invalid(overflow.begin(), overflow.end());
+			if (end_it != overflow.end()) {
+				cout << "Invalid UTF-8 encoding detected at line \n";
+				cout << "This part is fine: " << string(overflow.begin(), end_it) << "\n";
+			}
 			break;
 		}
 	}
-	
-	
-		
-	if(heightAuto) {
-		height = (numLines + 1) * curLineHeight;
-	}
+
+
+
+	//if(heightAuto) {
+	height = (numLines + 1) * curLineHeight;
+	//}
 
 	//remove duplicated entries in the used Fonts vector
 	sort( usedFonts.begin(), usedFonts.end() );
@@ -362,4 +368,42 @@ Letter TextBlock::createLetter(unsigned short character) {
 	letter.x = curX;
 	letter.y = curY;
 	return letter;
+}
+
+/// create an image
+TextBlockImage cppFont::TextBlock::getAsImage() {
+	recalculate();
+
+	float scale = 1;
+	TextBlockImage img;
+	img.width = ceilf(getWidth()*scale);
+	img.height = ceilf(getHeight()*scale);
+	unsigned int numPixels = img.width * img.height;
+	img.pixels = new unsigned char[numPixels];
+
+	for(unsigned int ix=0; ix<img.width; ix++) {
+		for(unsigned int iy=0; iy<img.height; iy++) {
+			img.pixels[iy * img.width + ix] = 0;
+		}
+	}
+
+	for(std::vector<Letter>::iterator it = letters.begin(); it != letters.end(); ++it) {
+		Letter& letter = *it;
+		Glyph* glyph = letter.glyph;
+		int lx = roundf(letter.x);
+		int ly = roundf(letter.y - glyph->bitmapHeight - glyph->hang);
+		for(unsigned int ix=0; ix<glyph->bitmapWidth; ix++) {
+			for(unsigned int iy=0; iy<glyph->bitmapHeight; iy++) {
+				unsigned int ixPos = ix + lx;
+				unsigned int iyPos = iy + ly;
+				unsigned int i = iyPos * img.width + ixPos;
+				if(i < numPixels)
+					img.pixels[i] = glyph->bitmap[iy * glyph->bitmapWidth + ix];
+			}
+		}
+		//l.glyph->bitmap
+		//drawer->drawCharacter(*it);
+	}
+
+	return img;
 }
