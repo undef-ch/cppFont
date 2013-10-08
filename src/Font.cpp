@@ -17,7 +17,7 @@ void GlyphList::build(FT_Face f, int size) {
 	FT_Error error = 0;
 	for( int i = 0; i < numGlyphs; ++i ) {
 		error = FT_Load_Glyph( face, i, FT_LOAD_RENDER );
-		FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
+		FT_Render_Glyph(face->glyph, FT_RENDER_MODE_LCD);
 		glyphs.push_back(Glyph());
 		//if(error){
 		Glyph& glyph = glyphs[i];
