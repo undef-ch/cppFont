@@ -21,6 +21,7 @@ public:
 	int hang;
 	float offsetY;
 	float advanceX;
+	float bearingX;
 	unsigned char* bitmap;
 	int charIndex;
 	unsigned char character;

@@ -10,7 +10,7 @@ using namespace std;
 
 void GlyphList::build(FT_Face f, int size) {
 	face = f;
-	
+
 	//FT_Set_Pixel_Sizes(face, 0, size);
 	FT_Set_Char_Size( face, size << 6, size << 6, 96, 96);
 	int numGlyphs = 256;
@@ -21,30 +21,32 @@ void GlyphList::build(FT_Face f, int size) {
 		glyphs.push_back(Glyph());
 		//if(error){
 		Glyph& glyph = glyphs[i];
-		
+
 		glyph.charIndex = i;
-		
+
 		int w = face->glyph->bitmap.width;
 		int h = face->glyph->bitmap.rows;
 		glyph.bitmap = (unsigned char*)malloc(w*h);
 		memcpy(glyph.bitmap, face->glyph->bitmap.buffer, w*h);
-		
+
 		glyph.bitmapWidth = w;
 		glyph.bitmapHeight = h;
 		glyph.hang = (face->glyph->metrics.horiBearingY - face->glyph->metrics.height ) >> 6;
 
 		glyph.width = face->glyph->metrics.width * 1/60.f;
 		glyph.height = face->glyph->metrics.height * 1/60.f;
-		
+
 		//glyph.offsetY = glyph.height - face->glyph->metrics.horiBearingY >> 6;//glyph.height - face->glyph->metrics.horiAdvance >> 6 + face->glyph->metrics.horiBearingY >> 6;
 		//glyph.offsetY += size;
 
 		glyph.offsetY = glyph.height - face->glyph->bitmap_top;
-		
+
 		//glyph.advanceX = face->glyph->advance.x * 1 / 60.f;
-		glyph.advanceX = (face->glyph->linearHoriAdvance >> 10) * 1 / 60.f;
+		glyph.advanceX = (face->glyph->metrics.horiAdvance) * 1 / 60.f;
+		glyph.bearingX = (face->glyph->metrics.horiBearingX) * 1 / 60.f;
+		//glyph.advanceX = face->glyph->metrics.horiAdvance  >> 6;
 		//glyph.advanceX = face->glyph->metrics.vertAdvance * 1/60.f;
-		
+
 		//if(glyph.advanceX < glyph.width) glyph.advanceX = glyph.width;
 		//cout << (face->glyph->linearHoriAdvance >> 16) << " _ " << (face->glyph->linearHoriAdvance * 1 / (2^256)) << endl;
 
@@ -88,8 +90,8 @@ Font::Font(std::string fontPath):isLoaded(false), hasKerning(false) {
 
 	FT_Select_Charmap(face , ft_encoding_unicode);
 	hasKerning = FT_HAS_KERNING( face );
-	
-	descender = -face->descender * 1/60.f;	
+
+	descender = -face->descender * 1/60.f;
 }
 
 Font::~Font() {
@@ -135,7 +137,7 @@ float Font::getKerningX(unsigned char a, unsigned char b) {
 	if(!hasKerning)
 		return 0;
 	FT_Vector  delta;
-	
+
 	FT_UInt g1 = FT_Get_Char_Index( face, a );
 	FT_UInt g2 = FT_Get_Char_Index( face, b );
 

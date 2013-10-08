@@ -33,6 +33,7 @@ public:
 	void setWidthAuto(bool state);
 	void setWidth(float width);
 	void setHeight(float height);
+	bool hasOverflow();
 
 	std::string getOverflow();
 

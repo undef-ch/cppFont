@@ -177,13 +177,17 @@ std::string TextBlock::getOverflow() {
 	return overflow;
 }
 
+bool TextBlock::hasOverflow() {
+	recalculate();
+	return overflow.size() > 0;
+}
+
 void TextBlock::recalculate() {
 
 	if(!isDirty)
 		return;
 
 	if(fontFamily == NULL) {
-
 		return;
 	}
 
@@ -235,7 +239,14 @@ void TextBlock::recalculate() {
 
 
 		//then calculate positions for the next letter
-		curX += letter.glyph->advanceX;
+		curX += letter.glyph->advanceX - letter.glyph->bearingX;
+
+		float kerning = 0;
+		if(curFont != NULL){
+			kerning = curFont->getKerningX(curCharacter, nextLetter);
+		}
+
+		curX += kerning;
 
 		//character specific actions
 		if(curCharacter == '\n')
@@ -390,15 +401,17 @@ TextBlockImage cppFont::TextBlock::getAsImage() {
 	for(std::vector<Letter>::iterator it = letters.begin(); it != letters.end(); ++it) {
 		Letter& letter = *it;
 		Glyph* glyph = letter.glyph;
-		int lx = roundf(letter.x);
-		int ly = roundf(letter.y - glyph->bitmapHeight - glyph->hang);
-		for(unsigned int ix=0; ix<glyph->bitmapWidth; ix++) {
-			for(unsigned int iy=0; iy<glyph->bitmapHeight; iy++) {
-				unsigned int ixPos = ix + lx;
-				unsigned int iyPos = iy + ly;
-				unsigned int i = iyPos * img.width + ixPos;
-				if(i < numPixels)
-					img.pixels[i] = glyph->bitmap[iy * glyph->bitmapWidth + ix];
+		if(glyph != NULL) {
+			int lx = floorf(letter.x);
+			int ly = floorf(letter.y - glyph->bitmapHeight - glyph->hang);
+			for(unsigned int ix=0; ix<glyph->bitmapWidth; ix++) {
+				for(unsigned int iy=0; iy<glyph->bitmapHeight; iy++) {
+					unsigned int ixPos = ix + lx;
+					unsigned int iyPos = iy + ly;
+					unsigned int i = iyPos * img.width + ixPos;
+					if(i < numPixels)
+						img.pixels[i] = glyph->bitmap[iy * glyph->bitmapWidth + ix];
+				}
 			}
 		}
 		//l.glyph->bitmap
