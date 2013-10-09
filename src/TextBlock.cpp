@@ -8,6 +8,8 @@ using namespace cppFont;
 using namespace std;
 using namespace Hyphenate;
 
+//#define ROUND(x)  ((x+32) & -64)
+
 std::vector<std::string> stringSplit(const std::string &s, char delim) {
 	std::vector<std::string> elems;
 	std::stringstream ss(s);
@@ -23,6 +25,7 @@ std::vector<std::string> stringSplit(const std::string &s, char delim) {
 TextBlock::TextBlock():fontSize(15),isDirty(true),bHyphenate(false),heightAuto(true),widthAuto(true) {
 	Font::initFreetype();
 	text = "";
+	setLetterSpacing(1);
 }
 
 TextBlock::~TextBlock() {
@@ -229,7 +232,7 @@ void TextBlock::recalculate() {
 		else
 			nextLetter = ' ';
 
-		Letter letter = createLetter(*curIt);
+		Letter letter = createLetter(curCharacter);
 		letters.push_back(letter);
 
 		//adjust current word length
@@ -239,7 +242,15 @@ void TextBlock::recalculate() {
 
 
 		//then calculate positions for the next letter
-		curX += letter.glyph->advanceX - letter.glyph->bearingX;
+		float advance =  letter.glyph->advanceX + 1;
+		//advance -= letter.glyph->bearingX;
+
+		/*
+		if(curCharacter != ' ' && advance > letter.glyph->width)
+			advance = letter.glyph->width;
+		*/
+
+		curX += advance;
 
 		float kerning = 0;
 		if(curFont != NULL){
@@ -402,8 +413,8 @@ TextBlockImage cppFont::TextBlock::getAsImage() {
 		Letter& letter = *it;
 		Glyph* glyph = letter.glyph;
 		if(glyph != NULL) {
-			int lx = floorf(letter.x);
-			int ly = floorf(letter.y - glyph->bitmapHeight - glyph->hang);
+			int lx = roundf(letter.x);
+			int ly = roundf(letter.y - glyph->bitmapHeight - glyph->hang);
 			for(unsigned int ix=0; ix<glyph->bitmapWidth; ix++) {
 				for(unsigned int iy=0; iy<glyph->bitmapHeight; iy++) {
 					unsigned int ixPos = ix + lx;

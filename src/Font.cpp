@@ -33,8 +33,8 @@ void GlyphList::build(FT_Face f, int size) {
 		glyph.bitmapHeight = h;
 		glyph.hang = (face->glyph->metrics.horiBearingY - face->glyph->metrics.height ) >> 6;
 
-		glyph.width = face->glyph->metrics.width * 1/60.f;
-		glyph.height = face->glyph->metrics.height * 1/60.f;
+		glyph.width = face->glyph->metrics.width >> 6;
+		glyph.height = face->glyph->metrics.height >> 6;
 
 		//glyph.offsetY = glyph.height - face->glyph->metrics.horiBearingY >> 6;//glyph.height - face->glyph->metrics.horiAdvance >> 6 + face->glyph->metrics.horiBearingY >> 6;
 		//glyph.offsetY += size;
@@ -42,8 +42,8 @@ void GlyphList::build(FT_Face f, int size) {
 		glyph.offsetY = glyph.height - face->glyph->bitmap_top;
 
 		//glyph.advanceX = face->glyph->advance.x * 1 / 60.f;
-		glyph.advanceX = (face->glyph->metrics.horiAdvance) * 1 / 60.f;
-		glyph.bearingX = (face->glyph->metrics.horiBearingX) * 1 / 60.f;
+		glyph.advanceX = (face->glyph->advance.x) >> 6;
+		glyph.bearingX = (face->glyph->metrics.horiBearingX) >> 6;
 		//glyph.advanceX = face->glyph->metrics.horiAdvance  >> 6;
 		//glyph.advanceX = face->glyph->metrics.vertAdvance * 1/60.f;
 
