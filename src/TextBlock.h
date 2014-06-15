@@ -81,6 +81,7 @@ private:
 	float curX;
 	float curY;
 	float curLineHeight;
+	int curLineLength;
 	cppFont::GlyphList* curGlyphs;
 	cppFont::Font* curFont;
 	std::vector<unsigned short>::iterator curIt;

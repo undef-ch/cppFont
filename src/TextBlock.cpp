@@ -216,7 +216,8 @@ void TextBlock::recalculate() {
 	curX = 0;
 	curY = fontSize;
 	int curWordLength = 0;
-
+	curLineLength = 0;
+	
 	curFont = NULL;
 	curGlyphs = NULL;
 
@@ -237,6 +238,7 @@ void TextBlock::recalculate() {
 
 		//adjust current word length
 		curWordLength++;
+		curLineLength++;
 		if(curCharacter == ' ')
 			curWordLength = 0;
 
@@ -260,8 +262,9 @@ void TextBlock::recalculate() {
 		curX += kerning;
 
 		//character specific actions
-		if(curCharacter == '\n')
+		if(curCharacter == '\n'){
 			newLine();
+		}
 
 		//we have a set width
 		if(!widthAuto) {
@@ -269,7 +272,8 @@ void TextBlock::recalculate() {
 
 				//go back to the last word space if no hyphenation
 				if(!bHyphenate) {
-					stepBack(curWordLength);
+					if(curWordLength < curLineLength)
+						stepBack(curWordLength);
 					newLine();
 				} else {
 					//let's hypenate!
@@ -364,6 +368,7 @@ void TextBlock::newLine() {
 	curY += curLineHeight;
 	curX = 0;
 	numLines++;
+	curLineLength = 0;
 }
 
 void TextBlock::stepBack(int amount) {
