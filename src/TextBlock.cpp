@@ -375,7 +375,7 @@ void TextBlock::newLine() {
 	if(align == Center){
 		if(!widthAuto.get()){
 			float theX = 0;
-			float offset = (width.get() - letters.back().x + letters.back().glyph->advanceX) * .5;
+			float offset = (width.get() - letters.back().x - letters.back().glyph->advanceX) * .5;
 			for(unsigned i = letters.size() - curLineLength; i<letters.size(); i++){
 				letters[i].x += offset;
 			}
