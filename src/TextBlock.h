@@ -12,9 +12,17 @@
 #include "Hyphenator.h"
 
 namespace cppFont {
-
+	
 class TextBlock {
-public:
+	public:
+
+	enum Align{
+		Left,
+		Center,
+		Right
+		//todo: justified
+	};
+	
 	TextBlock();
 	~TextBlock();
 	void enableHyphenation(std::string language, std::string dataPath);
@@ -33,6 +41,7 @@ public:
 	void setWidthAuto(bool state);
 	void setWidth(float width);
 	void setHeight(float height);
+	void setAlign(Align align);
 	bool hasOverflow();
 
 	std::string getOverflow();
@@ -88,6 +97,8 @@ private:
 	unsigned char curCharacter;
 
 	std::string overflow;
+	
+	Align align;
 };
 
 }

@@ -25,6 +25,7 @@ std::vector<std::string> stringSplit(const std::string &s, char delim) {
 TextBlock::TextBlock():fontSize(15),isDirty(true),bHyphenate(false),heightAuto(true),widthAuto(true) {
 	Font::initFreetype();
 	text = "";
+	align = Left;
 	setLetterSpacing(1);
 }
 
@@ -136,6 +137,11 @@ void TextBlock::setHeight(float h) {
 	setDirty();
 }
 
+void cppFont::TextBlock::setAlign(Align al) {
+	align = al;
+	setDirty();
+}
+
 void TextBlock::enableHyphenation(std::string language, std::string dataPath) {
 	bHyphenate = true;
 	hyphenator = new Hyphenator(RFC_3066::Language(language), dataPath);
@@ -217,7 +223,7 @@ void TextBlock::recalculate() {
 	curY = fontSize;
 	int curWordLength = 0;
 	curLineLength = 0;
-	
+
 	curFont = NULL;
 	curGlyphs = NULL;
 
@@ -255,14 +261,14 @@ void TextBlock::recalculate() {
 		curX += advance;
 
 		float kerning = 0;
-		if(curFont != NULL){
+		if(curFont != NULL) {
 			kerning = curFont->getKerningX(curCharacter, nextLetter);
 		}
 
 		curX += kerning;
 
 		//character specific actions
-		if(curCharacter == '\n'){
+		if(curCharacter == '\n') {
 			newLine();
 		}
 
@@ -353,7 +359,8 @@ void TextBlock::recalculate() {
 
 
 	//if(heightAuto) {
-	height = (numLines + 1) * curLineHeight;
+	newLine();
+	height = numLines * curLineHeight;
 	//}
 
 	//remove duplicated entries in the used Fonts vector
@@ -365,6 +372,15 @@ void TextBlock::recalculate() {
 }
 
 void TextBlock::newLine() {
+	if(align == Center){
+		if(!widthAuto.get()){
+			float theX = 0;
+			float offset = (width.get() - letters.back().x + letters.back().glyph->advanceX) * .5;
+			for(unsigned i = letters.size() - curLineLength; i<letters.size(); i++){
+				letters[i].x += offset;
+			}
+		}
+	}
 	curY += curLineHeight;
 	curX = 0;
 	numLines++;
@@ -374,6 +390,7 @@ void TextBlock::newLine() {
 void TextBlock::stepBack(int amount) {
 	letters.erase(letters.end()-amount, letters.end());
 	curIt -= amount;
+	curLineLength -= amount;
 }
 
 Letter TextBlock::createLetter(unsigned short character) {
