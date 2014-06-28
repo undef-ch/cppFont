@@ -192,7 +192,7 @@ bool TextBlock::hasOverflow() {
 }
 
 void TextBlock::recalculate() {
-
+	
 	if(!isDirty)
 		return;
 
@@ -200,11 +200,14 @@ void TextBlock::recalculate() {
 		return;
 	}
 
-
 	if(fontFamily->getNormal() == NULL) {
 		return;
 	}
-
+	
+	if(widthAuto){
+		width = 0;
+	}
+	
 	//calculate lineHeight
 	curLineHeight = lineHeight;
 	if(!lineHeight.isSet())
@@ -334,6 +337,8 @@ void TextBlock::recalculate() {
 					}
 				}
 			}
+		}else{
+			width = curX;
 		}
 
 		//add spacing after checking for box boundaries
