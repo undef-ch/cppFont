@@ -208,6 +208,9 @@ void TextBlock::recalculate() {
 		width = 0;
 	}
 	
+	
+	unsigned char lastCharacter = ' ';
+	
 	//calculate lineHeight
 	curLineHeight = lineHeight;
 	if(!lineHeight.isSet())
@@ -233,8 +236,11 @@ void TextBlock::recalculate() {
 	overflow = "";
 
 	unsigned char nextLetter = ' ';
+	curCharacter = ' ';
+	
 	//loop text and do it
 	for(curIt = textUtf16.begin(); curIt != textUtf16.end(); ++curIt) {
+		lastCharacter = curCharacter;
 		curCharacter = *curIt;
 
 		if(curIt+1 != textUtf16.end())
@@ -271,74 +277,77 @@ void TextBlock::recalculate() {
 		curX += kerning;
 
 		//character specific actions
-		if(curCharacter == '\n') {
+		if(curCharacter == '\n' || curCharacter == '\r') {
 			newLine();
-		}
+			letters.pop_back();
+		}else{
 
-		//we have a set width
-		if(!widthAuto) {
-			if(curX >= width) {
+			//we have a set width
+			if(!widthAuto) {
+				if(curX >= width) {
 
-				//go back to the last word space if no hyphenation
-				if(!bHyphenate) {
-					if(curWordLength < curLineLength)
-						stepBack(curWordLength);
-					newLine();
-				} else {
-					//let's hypenate!
-
-					//first find the current word and convert it to libhyphenate compatible utf8
-					std::string word;
-					std::vector<unsigned short>::iterator itBegin = curIt - curWordLength;
-					itBegin++;
-					std::vector<unsigned short>::iterator itEnd = itBegin;
-					while(itEnd != textUtf16.end() && *itEnd != ' ') {
-						word += *itEnd;
-						itEnd++;
-					}
-
-					string utf8Word;
-					utf8::utf16to8(itBegin, itEnd, back_inserter(utf8Word));
-
-					//now hyphenate and analyze result
-					//Glyph delimGlyph = curGlyphs->getGlyph('-');
-					//float delimWidth = delimGlyph.advanceX;
-					std::string hyphen = hyphenator->hyphenate(utf8Word);
-
-					std::vector<string> parts = stringSplit(hyphen, '-');
-					if(parts.size() == 1) { // no hyphenation, simple line break
-						stepBack(curWordLength);
+					//go back to the last word space if no hyphenation
+					if(!bHyphenate) {
+						if(curWordLength < curLineLength)
+							stepBack(curWordLength);
 						newLine();
 					} else {
-						int splitAt = 0;
+						//let's hypenate!
 
-						//curWordLength > parts[0].size()
-
-						for(vector<string>::iterator it = parts.begin(); it < parts.end(); it++) {
-							int newSplitAt = splitAt + (*it).size();
-							if(newSplitAt < curWordLength - 1) { //todo: check for actual '-' width
-								splitAt = newSplitAt;
-							} else {
-								break;
-							}
+						//first find the current word and convert it to libhyphenate compatible utf8
+						std::string word;
+						std::vector<unsigned short>::iterator itBegin = curIt - curWordLength;
+						itBegin++;
+						std::vector<unsigned short>::iterator itEnd = itBegin;
+						while(itEnd != textUtf16.end() && *itEnd != ' ') {
+							word += *itEnd;
+							itEnd++;
 						}
 
-						if(splitAt > 0) {
-							stepBack(curWordLength - splitAt);
-							//add the - delimiter
-							Letter letter = createLetter('-');
-							letter.x = letters.back().x + letters.back().glyph->advanceX + letterSpacing;
-							letters.push_back(letter);
-							newLine();
-						} else {
+						string utf8Word;
+						utf8::utf16to8(itBegin, itEnd, back_inserter(utf8Word));
+
+						//now hyphenate and analyze result
+						//Glyph delimGlyph = curGlyphs->getGlyph('-');
+						//float delimWidth = delimGlyph.advanceX;
+						std::string hyphen = hyphenator->hyphenate(utf8Word);
+
+						std::vector<string> parts = stringSplit(hyphen, '-');
+						if(parts.size() == 1) { // no hyphenation, simple line break
 							stepBack(curWordLength);
 							newLine();
+						} else {
+							int splitAt = 0;
+
+							//curWordLength > parts[0].size()
+
+							for(vector<string>::iterator it = parts.begin(); it < parts.end(); it++) {
+								int newSplitAt = splitAt + (*it).size();
+								if(newSplitAt < curWordLength - 1) { //todo: check for actual '-' width
+									splitAt = newSplitAt;
+								} else {
+									break;
+								}
+							}
+
+							if(splitAt > 0) {
+								stepBack(curWordLength - splitAt);
+								//add the - delimiter
+								Letter letter = createLetter('-');
+								letter.x = letters.back().x + letters.back().glyph->advanceX + letterSpacing;
+								letters.push_back(letter);
+								newLine();
+							} else {
+								stepBack(curWordLength);
+								newLine();
+							}
 						}
 					}
 				}
+			}else{
+				width = curX;
 			}
-		}else{
-			width = curX;
+		
 		}
 
 		//add spacing after checking for box boundaries
