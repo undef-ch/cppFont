@@ -1,5 +1,6 @@
 #include "Font.h"
 #include <stdexcept>
+#include <fstream>
 
 
 using namespace cppFont;
@@ -10,6 +11,9 @@ using namespace std;
 
 void GlyphList::build(FT_Face f, int size) {
 	face = f;
+	
+	if(face == NULL)
+		return;
 
 	//FT_Set_Pixel_Sizes(face, 0, size);
 	FT_Set_Char_Size( face, size << 6, size << 6, 96, 96);
@@ -80,7 +84,23 @@ FT_Library Font::freetype;
 bool Font::bFreetypeInit = false;
 int Font::curFontId = 0;
 
+inline bool fileExists (const std::string& name) {
+    ifstream f(name.c_str());
+    if (f.good()) {
+        f.close();
+        return true;
+    } else {
+        f.close();
+        return false;
+    }   
+}
+
 Font::Font(std::string fontPath):isLoaded(false), hasKerning(false) {
+	if(!fileExists(fontPath)){
+		face = NULL;
+		isLoaded = false;
+		return;
+	}
 	filePath = fontPath;
 	id = curFontId;
 	curFontId++;
@@ -92,6 +112,8 @@ Font::Font(std::string fontPath):isLoaded(false), hasKerning(false) {
 	hasKerning = FT_HAS_KERNING( face );
 
 	descender = -face->descender * 1/60.f;
+	
+	isLoaded = true;
 }
 
 Font::~Font() {

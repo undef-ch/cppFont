@@ -199,8 +199,8 @@ void TextBlock::recalculate() {
 	if(fontFamily == NULL) {
 		return;
 	}
-
-	if(fontFamily->getNormal() == NULL) {
+	
+	if(fontFamily->getNormal() == NULL || fontFamily->getNormal()->isLoaded == false) {
 		return;
 	}
 	
