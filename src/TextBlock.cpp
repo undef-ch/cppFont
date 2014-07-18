@@ -345,9 +345,9 @@ void TextBlock::recalculate() {
 					}
 				}
 			}else{
-				width = curX;
+				if(width < curX)
+					width = curX;
 			}
-		
 		}
 
 		//add spacing after checking for box boundaries
