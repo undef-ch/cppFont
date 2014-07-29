@@ -27,6 +27,8 @@ TextBlock::TextBlock():fontSize(15),isDirty(true),bHyphenate(false),heightAuto(t
 	text = "";
 	align = Left;
 	setLetterSpacing(1);
+	fontFamily = NULL;
+	lastFont = NULL;
 }
 
 TextBlock::~TextBlock() {
@@ -111,6 +113,7 @@ void TextBlock::setHeightAuto(bool state) {
 	if(heightAuto == state)
 		return;
 	heightAuto = state;
+	//height = 0;
 	setDirty();
 }
 
@@ -118,11 +121,12 @@ void TextBlock::setWidthAuto(bool state) {
 	if(widthAuto == state)
 		return;
 	widthAuto = state;
+	//width = 0;
 	setDirty();
 }
 
 void TextBlock::setWidth(float w) {
-	if(w == width)
+	if(w == width && !widthAuto)
 		return;
 	width = w;
 	setWidthAuto(false);
@@ -130,7 +134,7 @@ void TextBlock::setWidth(float w) {
 }
 
 void TextBlock::setHeight(float h) {
-	if(h == height)
+	if(h == height && !heightAuto)
 		return;
 	height = h;
 	setHeightAuto(false);
@@ -192,9 +196,6 @@ bool TextBlock::hasOverflow() {
 }
 
 void TextBlock::recalculate() {
-	
-	if(!isDirty)
-		return;
 
 	if(fontFamily == NULL) {
 		return;
@@ -203,6 +204,11 @@ void TextBlock::recalculate() {
 	if(fontFamily->getNormal() == NULL || fontFamily->getNormal()->isLoaded == false) {
 		return;
 	}
+	
+	if(!isDirty && lastFont == fontFamily->getNormal())
+		return;
+	
+	lastFont = fontFamily->getNormal();
 	
 	if(widthAuto){
 		width = 0;

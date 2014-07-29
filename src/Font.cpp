@@ -11,7 +11,7 @@ using namespace std;
 
 void GlyphList::build(FT_Face f, int size) {
 	face = f;
-	
+
 	if(face == NULL)
 		return;
 
@@ -73,8 +73,7 @@ std::vector<Glyph>::iterator GlyphList::end() {
 	return glyphs.end();
 }
 
-unsigned int cppFont::GlyphList::size()
-{
+unsigned int cppFont::GlyphList::size() {
 	return glyphs.size();
 }
 
@@ -85,18 +84,18 @@ bool Font::bFreetypeInit = false;
 int Font::curFontId = 0;
 
 inline bool fileExists (const std::string& name) {
-    ifstream f(name.c_str());
-    if (f.good()) {
-        f.close();
-        return true;
-    } else {
-        f.close();
-        return false;
-    }   
+	ifstream f(name.c_str());
+	if (f.good()) {
+		f.close();
+		return true;
+	} else {
+		f.close();
+		return false;
+	}
 }
 
 Font::Font(std::string fontPath):isLoaded(false), hasKerning(false) {
-	if(!fileExists(fontPath)){
+	if(!fileExists(fontPath)) {
 		face = NULL;
 		isLoaded = false;
 		return;
@@ -112,7 +111,7 @@ Font::Font(std::string fontPath):isLoaded(false), hasKerning(false) {
 	hasKerning = FT_HAS_KERNING( face );
 
 	descender = -face->descender * 1/60.f;
-	
+
 	isLoaded = true;
 }
 
@@ -139,8 +138,7 @@ GlyphList& Font::getGlyphList(int size) {
 	return glyphLists[size];
 }
 
-float Font::getDescender()
-{
+float Font::getDescender() {
 	return descender;
 }
 

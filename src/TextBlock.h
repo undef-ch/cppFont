@@ -99,6 +99,8 @@ private:
 	std::string overflow;
 	
 	Align align;
+	
+	Font* lastFont;
 };
 
 }
