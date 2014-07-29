@@ -52,6 +52,7 @@ class TextBlock {
 	void debugDraw(TextBlockDrawer* drawer);
 
 	void setDirty();
+	bool isDirty();
 
 	TextBlockImage getAsImage(); //TODO: add an additional scale parameter
 
@@ -73,7 +74,7 @@ private:
 	Value<float> height;
 	int fontSize;
 	unsigned int numLines;
-	bool isDirty;
+	bool bDirty;
 
 	std::vector<Letter> letters;
 	std::vector<Font*> usedFonts;
@@ -100,7 +101,7 @@ private:
 	
 	Align align;
 	
-	Font* lastFont;
+	std::string lastFont;
 };
 
 }

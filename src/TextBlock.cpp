@@ -22,20 +22,24 @@ std::vector<std::string> stringSplit(const std::string &s, char delim) {
 	return elems;
 }
 
-TextBlock::TextBlock():fontSize(15),isDirty(true),bHyphenate(false),heightAuto(true),widthAuto(true) {
+TextBlock::TextBlock():fontSize(15),bDirty(true),bHyphenate(false),heightAuto(true),widthAuto(true) {
 	Font::initFreetype();
 	text = "";
 	align = Left;
 	setLetterSpacing(1);
 	fontFamily = NULL;
-	lastFont = NULL;
+	lastFont = "";
 }
 
 TextBlock::~TextBlock() {
 }
 
 void TextBlock::setDirty() {
-	isDirty = true;
+	bDirty = true;
+}
+
+bool cppFont::TextBlock::isDirty() {
+	return !bDirty && lastFont == fontFamily->getNormal()->filePath;
 }
 
 void TextBlock::setText(std::string t) {
@@ -113,7 +117,7 @@ void TextBlock::setHeightAuto(bool state) {
 	if(heightAuto == state)
 		return;
 	heightAuto = state;
-	//height = 0;
+	height = 0;
 	setDirty();
 }
 
@@ -121,23 +125,23 @@ void TextBlock::setWidthAuto(bool state) {
 	if(widthAuto == state)
 		return;
 	widthAuto = state;
-	//width = 0;
+	width = 0;
 	setDirty();
 }
 
 void TextBlock::setWidth(float w) {
 	if(w == width && !widthAuto)
 		return;
-	width = w;
 	setWidthAuto(false);
+	width = w;
 	setDirty();
 }
 
 void TextBlock::setHeight(float h) {
 	if(h == height && !heightAuto)
 		return;
-	height = h;
 	setHeightAuto(false);
+	height = h;
 	setDirty();
 }
 
@@ -200,23 +204,23 @@ void TextBlock::recalculate() {
 	if(fontFamily == NULL) {
 		return;
 	}
-	
+
 	if(fontFamily->getNormal() == NULL || fontFamily->getNormal()->isLoaded == false) {
 		return;
 	}
-	
-	if(!isDirty && lastFont == fontFamily->getNormal())
+
+	if(isDirty())
 		return;
-	
-	lastFont = fontFamily->getNormal();
-	
-	if(widthAuto){
+
+	//lastFont = fontFamily->getNormal()->filePath;
+
+	if(widthAuto) {
 		width = 0;
 	}
-	
-	
+
+
 	unsigned char lastCharacter = ' ';
-	
+
 	//calculate lineHeight
 	curLineHeight = lineHeight;
 	if(!lineHeight.isSet())
@@ -243,7 +247,7 @@ void TextBlock::recalculate() {
 
 	unsigned char nextLetter = ' ';
 	curCharacter = ' ';
-	
+
 	//loop text and do it
 	for(curIt = textUtf16.begin(); curIt != textUtf16.end(); ++curIt) {
 		lastCharacter = curCharacter;
@@ -286,7 +290,7 @@ void TextBlock::recalculate() {
 		if(curCharacter == '\n' || curCharacter == '\r') {
 			newLine();
 			letters.pop_back();
-		}else{
+		} else {
 
 			//we have a set width
 			if(!widthAuto) {
@@ -350,7 +354,7 @@ void TextBlock::recalculate() {
 						}
 					}
 				}
-			}else{
+			} else {
 				if(width < curX)
 					width = curX;
 			}
@@ -388,15 +392,15 @@ void TextBlock::recalculate() {
 	usedFonts.erase( unique( usedFonts.begin(), usedFonts.end() ), usedFonts.end() );
 
 	//not dirty anymore
-	isDirty = false;
+	bDirty = false;
 }
 
 void TextBlock::newLine() {
-	if(align == Center){
-		if(!widthAuto.get()){
+	if(align == Center) {
+		if(!widthAuto.get()) {
 			float theX = 0;
 			float offset = (width.get() - letters.back().x - letters.back().glyph->advanceX) * .5;
-			for(unsigned i = letters.size() - curLineLength; i<letters.size(); i++){
+			for(unsigned i = letters.size() - curLineLength; i<letters.size(); i++) {
 				letters[i].x += offset;
 			}
 		}
