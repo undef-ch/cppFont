@@ -39,7 +39,7 @@ void TextBlock::setDirty() {
 }
 
 bool cppFont::TextBlock::isDirty() {
-	return !bDirty && lastFont == fontFamily->getNormal()->filePath;
+	return bDirty || lastFont != fontFamily->getNormal()->filePath;
 }
 
 void TextBlock::setText(std::string t) {
@@ -209,7 +209,7 @@ void TextBlock::recalculate() {
 		return;
 	}
 
-	if(isDirty())
+	if(!isDirty())
 		return;
 
 	//lastFont = fontFamily->getNormal()->filePath;
