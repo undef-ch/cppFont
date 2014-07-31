@@ -199,6 +199,11 @@ bool FontFamily::loadItalic(std::string fontPath) {
 }
 
 bool FontFamily::loadNormal(std::string fontPath) {
+	if(fontPath == "")
+		return false;
+	if(normal && normal->filePath == fontPath){
+		return true;
+	}
 	setFontNormal(new Font(fontPath));
 	return normal->isLoaded;
 }
@@ -214,6 +219,8 @@ void FontFamily::setFontItalic(Font* font) {
 }
 
 void FontFamily::setFontNormal(Font* font) {
+	if(normal == font)
+		return;
 	normal = font;
 	addFont(normal);
 }

@@ -37,6 +37,7 @@ class TextBlock {
 	void setLetterSpacing(float letterSpacing);
 	void setWordSpacing(float wordSpacing);
 	void setFontSize(int fontSize);
+	int getFontSize();
 	void setHeightAuto(bool state);
 	void setWidthAuto(bool state);
 	void setWidth(float width);

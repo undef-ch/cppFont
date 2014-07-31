@@ -39,19 +39,23 @@ void TextBlock::setDirty() {
 }
 
 bool cppFont::TextBlock::isDirty() {
-	return bDirty || lastFont != fontFamily->getNormal()->filePath;
+	return (bDirty || lastFont != fontFamily->getNormal()->filePath);
 }
 
 void TextBlock::setText(std::string t) {
-	if(text == t)
-		return;
+	
 	string::iterator end_it = utf8::find_invalid(t.begin(), t.end());
 	if (end_it != t.end()) {
 		cout << "Invalid UTF-8 encoding detected " << t << "\n";
 		//check for valid utf-8
 		t = string(t.begin(), end_it);
 	}
+	
+	if(text == t)
+		return;
+	
 	text = t;
+	
 	setDirty();
 }
 
@@ -86,6 +90,10 @@ void TextBlock::setFontSize(int fs) {
 		return;
 	fontSize = fs;
 	setDirty();
+}
+
+int TextBlock::getFontSize() {
+	return fontSize;
 }
 
 void TextBlock::setLeading(float leading) {
@@ -212,7 +220,7 @@ void TextBlock::recalculate() {
 	if(!isDirty())
 		return;
 
-	//lastFont = fontFamily->getNormal()->filePath;
+	lastFont = fontFamily->getNormal()->filePath;
 
 	if(widthAuto) {
 		width = 0;
@@ -441,7 +449,7 @@ Letter TextBlock::createLetter(unsigned short character) {
 /// create an image
 TextBlockImage cppFont::TextBlock::getAsImage() {
 	recalculate();
-
+		
 	float scale = 1;
 	TextBlockImage img;
 	img.width = ceilf(getWidth()*scale);
