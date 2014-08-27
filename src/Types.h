@@ -80,7 +80,7 @@ public:
 	Font* font;
 	Glyph* glyph;
 	unsigned short utf8Character;
-	unsigned char character;
+	unsigned int character;
 	int size;
 };
 

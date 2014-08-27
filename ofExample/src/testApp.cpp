@@ -10,6 +10,7 @@ void testApp::setup(){
 	textBlock.setLetterSpacing(0);
 	textBlock.setFontSize(60);
 	textBlock.setText("Wüsten & Höcker. Dies ist ein ganz normaler Text, der irgendwo auch umgebrochen werden sollte. Das hoffen wir ganz fest!");
+	//textBlock.setText("œœœœœœœ");
 	textBlock.setWidth(700);
 }
 

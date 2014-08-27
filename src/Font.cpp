@@ -61,7 +61,7 @@ void GlyphList::build(FT_Face f, int size) {
 	}
 }
 
-Glyph& GlyphList::getGlyph(unsigned char character) {
+Glyph& GlyphList::getGlyph(unsigned int character) {
 	//return glyphs[int(character)];
 	return glyphs[FT_Get_Char_Index(face,character)];
 }

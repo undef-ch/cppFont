@@ -42,8 +42,7 @@ bool cppFont::TextBlock::isDirty() {
 	return (bDirty || lastFont != fontFamily->getNormal()->filePath);
 }
 
-void TextBlock::setText(std::string t) {
-	
+void TextBlock::setText(std::string t) {	
 	string::iterator end_it = utf8::find_invalid(t.begin(), t.end());
 	if (end_it != t.end()) {
 		cout << "Invalid UTF-8 encoding detected " << t << "\n";
@@ -55,7 +54,7 @@ void TextBlock::setText(std::string t) {
 		return;
 	
 	text = t;
-	
+		
 	setDirty();
 }
 
@@ -227,7 +226,7 @@ void TextBlock::recalculate() {
 	}
 
 
-	unsigned char lastCharacter = ' ';
+	unsigned short lastCharacter = ' ';
 
 	//calculate lineHeight
 	curLineHeight = lineHeight;
@@ -236,8 +235,10 @@ void TextBlock::recalculate() {
 
 	//reset old values
 	textUtf16.clear();
-	utf8::utf8to16(text.begin(), text.end(), back_inserter(textUtf16));
 
+	utf8::utf8to16(text.begin(), text.end(), back_inserter(textUtf16));
+	
+	
 	letters.clear();
 	usedFonts.clear();
 
@@ -260,6 +261,8 @@ void TextBlock::recalculate() {
 	for(curIt = textUtf16.begin(); curIt != textUtf16.end(); ++curIt) {
 		lastCharacter = curCharacter;
 		curCharacter = *curIt;
+		
+		//cout << curCharacter << endl;
 
 		if(curIt+1 != textUtf16.end())
 			nextLetter = *(curIt+1);

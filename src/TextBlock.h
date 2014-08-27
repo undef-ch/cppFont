@@ -96,7 +96,9 @@ private:
 	cppFont::GlyphList* curGlyphs;
 	cppFont::Font* curFont;
 	std::vector<unsigned short>::iterator curIt;
-	unsigned char curCharacter;
+	std::u16string u16;
+	
+	unsigned short curCharacter;
 
 	std::string overflow;
 	

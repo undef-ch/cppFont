@@ -32,7 +32,7 @@ private:
 class GlyphList {
 public:
 	void build(FT_Face face, int size);
-	Glyph& getGlyph(unsigned char character);
+	Glyph& getGlyph(unsigned int character);
 	std::vector<Glyph>::iterator begin();
 	std::vector<Glyph>::iterator end();
 	unsigned int size();
